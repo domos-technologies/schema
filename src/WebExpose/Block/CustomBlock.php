@@ -8,11 +8,17 @@ use SchemaImmo\WebExpose\BlockType;
 
 class CustomBlock extends Block
 {
+    /** @var string|null */
+    public $html;
+
 	public function __construct(
 		array $data = [],
 
 		/** @var string|null */
 		$id = null,
+
+        /** @var string|null */
+        $html = null,
 	)
 	{
 		parent::__construct(
@@ -20,11 +26,14 @@ class CustomBlock extends Block
 			$id,
 		);
 
+        $this->html = $html;
 		$this->extra = $data;
 	}
 
 	public function toArrayWithoutExtra(): array
 	{
-		return [];
+		return [
+			'html' => $this->html,
+		];
 	}
 }
