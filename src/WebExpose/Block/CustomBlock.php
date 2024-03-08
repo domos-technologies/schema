@@ -11,24 +11,24 @@ class CustomBlock extends Block
     /** @var string|null */
     public $html;
 
-	public function __construct(
-		array $data = [],
+    public function __construct(
+        array $data = [],
 
-		/** @var string|null */
-		$id = null,
+        /** @var string|null */
+        $id = null,
 
         /** @var string|null */
         $html = null,
-	)
-	{
-		parent::__construct(
-			BlockType::Custom,
-			$id,
-		);
+    )
+    {
+        parent::__construct(
+            BlockType::Custom,
+            $id,
+        );
 
         $this->html = $html;
-		$this->extra = $data;
-	}
+        $this->extra = $data;
+    }
 
     public function fill(array $data): static
     {
@@ -40,9 +40,9 @@ class CustomBlock extends Block
     }
 
     public function toArrayWithoutExtra(): array
-	{
-		return [
-			'html' => $this->html,
-		];
-	}
+    {
+        return [
+            'html' => $this->html,
+        ];
+    }
 }
