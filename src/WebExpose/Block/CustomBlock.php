@@ -30,7 +30,16 @@ class CustomBlock extends Block
 		$this->extra = $data;
 	}
 
-	public function toArrayWithoutExtra(): array
+    public function fill(array $data): static
+    {
+        parent::fill($data);
+
+        $this->html = $data['html'] ?? null;
+
+        return $this;
+    }
+
+    public function toArrayWithoutExtra(): array
 	{
 		return [
 			'html' => $this->html,
