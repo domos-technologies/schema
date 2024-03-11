@@ -17,6 +17,15 @@ class Place implements \SchemaImmo\Arrayable
 
 	public ?Directions $directions_from_estate = null;
 
+    public static function tryFrom(array $data): ?self
+    {
+        try {
+            return self::from($data);
+        } catch (\SchemaImmo\Exceptions\InvalidDataException $e) {
+            return null;
+        }
+    }
+
     public static function from(array $data): self
     {
         if (!isset($data['type'])) {
