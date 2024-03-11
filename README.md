@@ -13,3 +13,7 @@
 <br>
 
 `domos/schema` is the reference implementation of the domos real estate data schema written in PHP.
+
+```bash
+composer install domos/schema
+```
