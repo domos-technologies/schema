@@ -10,21 +10,21 @@ use SchemaImmo\Sanitizer;
 class Address implements Arrayable
 {
     public string $street;
-    public string $number;
-    public string $postal_code;
-    public string $city;
+    public ?string $number = null;
+    public ?string $postal_code = null;
+    public ?string $city = null;
     public ?string $country = null;
     public ?Coordinates $coordinates = null;
     public ?string $label = null;
 
     public function __construct(
         string $street,
-        string $number,
-        string $postal_code,
-        string $city,
+        ?string $number = null,
+        ?string $postal_code = null,
+        ?string $city = null,
         ?string $country = null,
         ?Coordinates $coordinates = null,
-        ?string $label = null,
+        ?string $label = null
     )
     {
         $this->street = $street;
@@ -58,11 +58,11 @@ class Address implements Arrayable
 
             // Data cannot be empty strings
             $isset('street') && $isEmptyString('street') => new InvalidDataException('street', 'Street cannot be empty'),
-            $isset('number') && $isEmptyString('number') => new InvalidDataException('number', 'Street number cannot be empty'),
-            $isset('postal_code') && $isEmptyString('postal_code') => new InvalidDataException('postal_code', 'Postal code cannot be empty'),
-            $isset('city') && $isEmptyString('city') => new InvalidDataException('city', 'City cannot be empty'),
-            $isset('country') && $isEmptyString('country') => new InvalidDataException('country', 'Country cannot be empty'),
-            $isset('label') && $isEmptyString('label') => new InvalidDataException('label', 'Label cannot be empty'),
+//            $isset('number') && $isEmptyString('number') => new InvalidDataException('number', 'Street number cannot be empty'),
+//            $isset('postal_code') && $isEmptyString('postal_code') => new InvalidDataException('postal_code', 'Postal code cannot be empty'),
+//            $isset('city') && $isEmptyString('city') => new InvalidDataException('city', 'City cannot be empty'),
+//            $isset('country') && $isEmptyString('country') => new InvalidDataException('country', 'Country cannot be empty'),
+//            $isset('label') && $isEmptyString('label') => new InvalidDataException('label', 'Label cannot be empty'),
 
             default => null,
         };
@@ -73,9 +73,9 @@ class Address implements Arrayable
 
         return new self(
             street: $data['street'],
-            number: $data['number'],
-            postal_code: $data['postal_code'],
-            city: $data['city'],
+            number: Sanitizer::nullify_string($data['number'] ?? null),
+            postal_code: Sanitizer::nullify_string($data['postal_code'] ?? null),
+            city: Sanitizer::nullify_string($data['city'] ?? null),
             country: Sanitizer::nullify_string($data['country'] ?? null),
             coordinates: isset($data['coordinates'])
                 ? Coordinates::from($data['coordinates'])
@@ -105,6 +105,6 @@ class Address implements Arrayable
 			$data['coordinates'] = $this->coordinates->toArray();
 		}
 
-		return $data;
+		return array_filter($data);
     }
 }
