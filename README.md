@@ -153,13 +153,6 @@ if ($query->have_posts()) {
 
 This example shows how to query for multiple estates and display basic information for each.
 
-### Important Notes for Website Building
-
-1. Always check if the estate exists before trying to access its data to avoid errors.
-2. When displaying data in templates, always validate and sanitize the output to ensure security and prevent potential XSS vulnerabilities.
-3. Use WordPress's built-in functions like `esc_html()` and `esc_url()` when outputting data to ensure proper escaping.
-4. Consider implementing caching mechanisms for frequently accessed data to improve performance.
-
 ### Estate Management Operations (Internal Use)
 
 The following operations are primarily for internal use and data management:
