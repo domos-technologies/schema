@@ -265,15 +265,15 @@ $arrayRepresentation = $rentable->toArray();
 
 The `Address` class represents a physical address.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| street | string | Street name |
-| number | string | Street number |
-| postal_code | string | Postal code |
-| city | string | City name |
-| country | ?string | Country code |
+| Property | Type                         | Description |
+|----------|------------------------------|-------------|
+| street | string                       | Street name |
+| number | ?string                      | Street number |
+| postal_code | ?string                      | Postal code |
+| city | ?string                      | City name |
+| country | ?string                      | Country code |
 | coordinates | ?[Coordinates](#coordinates) | Geographical coordinates of the address |
-| label | ?string | Custom label for the address |
+| label | ?string                      | Custom label for the address |
 
 Usage:
 ```php
