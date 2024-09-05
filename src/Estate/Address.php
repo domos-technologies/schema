@@ -44,17 +44,17 @@ class Address implements Arrayable
         $exception = match (true) {
             // Required fields
             !$isset('street') => new InvalidDataException('street', 'Missing street'),
-            !$isset('number') => new InvalidDataException('number', 'Missing street number'),
-            !$isset('postal_code') => new InvalidDataException('postal_code', 'Missing postal code'),
-            !$isset('city') => new InvalidDataException('city', 'Missing city'),
+//            !$isset('number') => new InvalidDataException('number', 'Missing street number'),
+//            !$isset('postal_code') => new InvalidDataException('postal_code', 'Missing postal code'),
+//            !$isset('city') => new InvalidDataException('city', 'Missing city'),
 
             // Data must be strings
             $isset('street') && !is_string($data['street']) => new InvalidDataException('street', 'Street must be a string'),
-            $isset('number') && !is_string($data['number']) => new InvalidDataException('number', 'Street number must be a string'),
-            $isset('postal_code') && !is_string($data['postal_code']) => new InvalidDataException('postal_code', 'Postal code must be a string'),
-            $isset('city') && !is_string($data['city']) => new InvalidDataException('city', 'City must be a string'),
-            $isset('country') && !is_string($data['country']) => new InvalidDataException('country', 'Country must be a string'),
-            $isset('label') && !is_string($data['label']) => new InvalidDataException('label', 'Label must be a string'),
+//            $isset('number') && !is_string($data['number']) => new InvalidDataException('number', 'Street number must be a string'),
+//            $isset('postal_code') && !is_string($data['postal_code']) => new InvalidDataException('postal_code', 'Postal code must be a string'),
+//            $isset('city') && !is_string($data['city']) => new InvalidDataException('city', 'City must be a string'),
+//            $isset('country') && !is_string($data['country']) => new InvalidDataException('country', 'Country must be a string'),
+//            $isset('label') && !is_string($data['label']) => new InvalidDataException('label', 'Label must be a string'),
 
             // Data cannot be empty strings
             $isset('street') && $isEmptyString('street') => new InvalidDataException('street', 'Street cannot be empty'),
