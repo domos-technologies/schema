@@ -355,7 +355,6 @@ The `Availability` class represents the availability status of a rentable space.
 | text | string | Text description of the availability |
 | date | ?DateTimeInterface | Date when the space will be available |
 | afterTenantConstruction | bool | Indicates if the space is available after tenant construction |
-| availableAfterIsQuarterly | bool | Indicates if the availability is on a quarterly basis |
 
 Usage:
 ```php
