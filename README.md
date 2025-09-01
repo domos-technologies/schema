@@ -117,17 +117,18 @@ $arrayRepresentation = $building->toArray();
 
 The `Rentable` class represents a space that can be rented or sold within a building.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| id | string | Unique identifier |
-| name | ?string | Name of the rentable space |
-| area | ?float | Area of the space in square meters |
-| description | ?string | Detailed description of the space |
-| transaction_type | [TransactionType](#transactiontype) | Type of transaction (Rent or Sale) |
-| price | ?[Price](#price) | Pricing information for the space |
-| spaces | array | List of [Space](#space) objects within the rentable area |
-| features | array | List of features and amenities specific to the rentable space |
-| media | [Rentable\Media](#rentablemedia) | Images, videos, and 3D scans related to the rentable space |
+| Property         | Type | Description                                                   |
+|------------------|------|---------------------------------------------------------------|
+| id               | string | Unique identifier                                             |
+| name             | ?string | Name of the rentable space                                    |
+| area             | ?float | Area of the space in square meters                            |
+| description      | ?string | Detailed description of the space                             |
+| transaction_type | [TransactionType](#transactiontype) | Type of transaction (Rent or Sale)                            |
+| price            | ?[Price](#price) | Pricing information for the space                             |
+| price_per_m2     | ?[Price](#price) | Pricing information per m2 for the space                      |
+| spaces           | array | List of [Space](#space) objects within the rentable area      |
+| features         | array | List of features and amenities specific to the rentable space |
+| media            | [Rentable\Media](#rentablemedia) | Images, videos, and 3D scans related to the rentable space    |
 
 Usage:
 ```php
