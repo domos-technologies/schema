@@ -4,6 +4,7 @@ namespace SchemaImmo\Building;
 
 use SchemaImmo\Arrayable;
 use SchemaImmo\Image;
+use SchemaImmo\Media\Scan;
 
 class Media implements Arrayable
 {
@@ -13,16 +14,22 @@ class Media implements Arrayable
 	/** @var Image[] $images */
 	public array $images = [];
 
+	/** @var Scan[] $scans */
+	public array $scans = [];
+
 	public function __construct(
 		?Image $thumbnail = null,
 		?Image $thumbnail_small = null,
 		/** @var Image[] $images */
-		array $images = []
+		array $images = [],
+		/** @var Scan[] $scans */
+		array $scans = [],
 	)
 	{
 		$this->thumbnail = $thumbnail;
 		$this->thumbnail_small = $thumbnail_small;
 		$this->images = $images;
+		$this->scans = $scans;
 	}
 
 	public static function from(array $data): Arrayable
@@ -40,6 +47,10 @@ class Media implements Arrayable
 			return Image::from($image);
 		}, $data['images'] ?? []);
 
+		$media->scans = array_map(function ($scan) {
+			return Scan::from($scan);
+		}, $data['scans'] ?? []);
+
 		return $media;
 	}
 
@@ -51,6 +62,9 @@ class Media implements Arrayable
 			'images' => array_map(function ($image) {
 				return $image->toArray();
 			}, $this->images),
+			'scans' => array_map(function ($scan) {
+				return $scan->toArray();
+			}, $this->scans),
 		]);
 	}
 }

@@ -15,11 +15,11 @@ class Media implements Arrayable
 	public array $gallery = [];
 
 	/** @var Image|null $logo */
-	public $logo = null;
+	public ?Image $logo = null;
 
 	public array $videos = [];
 
-	/** @var Scan[] */
+	/** @var Scan[] $scans */
 	public array $scans = [];
 
 	public static function from(array $data): self
@@ -44,6 +44,12 @@ class Media implements Arrayable
 			$images->logo = Image::from($data['logo']);
 		}
 
+		if (isset($data['scans'])) {
+			foreach ($data['scans'] as $scan) {
+				$images->scans[] = Scan::from($scan);
+			}
+		}
+
 		return $images;
 	}
 
@@ -55,7 +61,7 @@ class Media implements Arrayable
 			'gallery' => array_map(fn (Image $image) => $image->toArray(), $this->gallery),
 			'logo' => $this->logo?->toArray(),
 			'videos' => [], //array_map(fn (Video $video) => $video->toArray(), $this->videos),
-			'scans' => [], //array_map(fn (Scan $scan) => $scan->toArray(), $this->scans),
+			'scans' => array_map(fn (Scan $scan) => $scan->toArray(), $this->scans),
 		]);
 	}
 }
