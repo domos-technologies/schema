@@ -2,6 +2,7 @@
 
 namespace SchemaImmo;
 
+use SchemaImmo\Rentable\Availability;
 use SchemaImmo\Rentable\TransactionType;
 use SchemaImmo\Rentable\Price;
 use SchemaImmo\Rentable\Space;
@@ -25,6 +26,8 @@ class Rentable implements Arrayable
 
 	public Rentable\Media $media;
 
+	public ?Availability $availability = null;
+
 	public function __construct(
 		string          $id,
 		?string         $name = null,
@@ -35,7 +38,8 @@ class Rentable implements Arrayable
 		?Price          $price_per_m2 = null,
 		array           $spaces = [],
 		array 			$features = [],
-		?Rentable\Media $media = null
+		?Rentable\Media $media = null,
+		?Availability   $availability = null
 	)
 	{
 		$this->id = $id;
@@ -48,6 +52,7 @@ class Rentable implements Arrayable
 		$this->spaces = $spaces;
 		$this->features = $features;
 		$this->media = $media ?? new Rentable\Media;
+		$this->availability = $availability;
 	}
 
 	public static function from(array $data): self
@@ -81,6 +86,12 @@ class Rentable implements Arrayable
 
 		if (isset($data['media'])) {
 			$rentable->media = Rentable\Media::from($data['media']);
+		} else {
+			$rentable->media = new Rentable\Media;
+		}
+
+		if (isset($data['availability'])) {
+			$rentable->availability = Availability::from($data['availability']);
 		}
 
 		return $rentable;
@@ -102,6 +113,7 @@ class Rentable implements Arrayable
 			),
 			'features' => $this->features,
 			'media' => $this->media->toArray(),
+			'availability' => $this->availability?->toArray(),
 		]);
 	}
 }
