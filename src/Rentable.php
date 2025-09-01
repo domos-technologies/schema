@@ -15,6 +15,7 @@ class Rentable implements Arrayable
 
 	public TransactionType $transaction_type;
 	public ?Price $price = null;
+	public ?Price $price_per_m2 = null;
 
 	/** @var Space[] $spaces */
 	public array $spaces = [];
@@ -31,9 +32,10 @@ class Rentable implements Arrayable
 		?string         $description = null,
 		TransactionType $transaction_type = TransactionType::Sale,
 		?Price          $price = null,
+		?Price          $price_per_m2 = null,
 		array           $spaces = [],
 		array 			$features = [],
-		Rentable\Media  $media = new Rentable\Media
+		?Rentable\Media $media = null
 	)
 	{
 		$this->id = $id;
@@ -42,9 +44,10 @@ class Rentable implements Arrayable
 		$this->description = $description;
 		$this->transaction_type = $transaction_type;
 		$this->price = $price;
+		$this->price_per_m2 = $price_per_m2;
 		$this->spaces = $spaces;
 		$this->features = $features;
-		$this->media = $media;
+		$this->media = $media ?? new Rentable\Media;
 	}
 
 	public static function from(array $data): self
@@ -65,6 +68,10 @@ class Rentable implements Arrayable
 			? Price::from($data['price'])
 			: null;
 
+		$rentable->price_per_m2 = isset($data['price_per_m2'])
+			? Price::from($data['price_per_m2'])
+			: null;
+
 		$rentable->spaces = array_map(
 			fn(array $space) => Space::from($space),
 			$data['spaces'] ?? []
@@ -81,21 +88,20 @@ class Rentable implements Arrayable
 
 	public function toArray(): array
 	{
-		return [
+		return array_filter([
 			'id' => $this->id,
 			'name' => $this->name,
 			'area' => $this->area,
 			'description' => $this->description,
 			'transaction_type' => $this->transaction_type->value,
-			'price' => $this->price
-				? $this->price->toArray()
-				: null,
+			'price' => $this->price?->toArray(),
+			'price_per_m2' => $this->price_per_m2?->toArray(),
 			'spaces' => array_map(
 				fn(Space $space) => $space->toArray(),
 				$this->spaces
 			),
 			'features' => $this->features,
 			'media' => $this->media->toArray(),
-		];
+		]);
 	}
 }
