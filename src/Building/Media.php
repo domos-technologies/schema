@@ -8,16 +8,20 @@ use SchemaImmo\Image;
 class Media implements Arrayable
 {
 	public ?Image $thumbnail = null;
+	public ?Image $thumbnail_small = null;
 
 	/** @var Image[] $images */
 	public array $images = [];
 
 	public function __construct(
 		?Image $thumbnail = null,
+		?Image $thumbnail_small = null,
+		/** @var Image[] $images */
 		array $images = []
 	)
 	{
 		$this->thumbnail = $thumbnail;
+		$this->thumbnail_small = $thumbnail_small;
 		$this->images = $images;
 	}
 
@@ -26,6 +30,10 @@ class Media implements Arrayable
 		$media = new self;
 		$media->thumbnail = isset($data['thumbnail'])
 			? Image::from($data['thumbnail'])
+			: null;
+
+		$media->thumbnail_small = isset($data['thumbnail_small'])
+			? Image::from($data['thumbnail_small'])
 			: null;
 
 		$media->images = array_map(function ($image) {
@@ -37,11 +45,12 @@ class Media implements Arrayable
 
 	public function toArray(): array
 	{
-		return [
+		return array_filter([
 			'thumbnail' => $this->thumbnail?->toArray(),
+			'thumbnail_small' => $this->thumbnail_small?->toArray(),
 			'images' => array_map(function ($image) {
 				return $image->toArray();
 			}, $this->images),
-		];
+		]);
 	}
 }

@@ -9,6 +9,7 @@ use SchemaImmo\Media\Scan;
 class Media implements Arrayable
 {
 	public ?Image $thumbnail = null;
+	public ?Image $thumbnail_small = null;
 
 	/** @var Image[] $gallery */
 	public array $gallery = [];
@@ -29,6 +30,10 @@ class Media implements Arrayable
 			$images->thumbnail = Image::from($data['thumbnail']);
 		}
 
+		if (isset($data['thumbnail_small'])) {
+			$images->thumbnail_small = Image::from($data['thumbnail_small']);
+		}
+
 		if (isset($data['gallery'])) {
 			foreach ($data['gallery'] as $image) {
 				$images->gallery[] = Image::from($image);
@@ -44,16 +49,13 @@ class Media implements Arrayable
 
 	public function toArray(): array
 	{
-		return [
-			'thumbnail' => $this->thumbnail
-				? $this->thumbnail->toArray()
-				: null,
+		return array_filter([
+			'thumbnail' => $this->thumbnail?->toArray(),
+			'thumbnail_small' => $this->thumbnail_small?->toArray(),
 			'gallery' => array_map(fn (Image $image) => $image->toArray(), $this->gallery),
-			'logo' => $this->logo
-				? $this->logo->toArray()
-				: null,
+			'logo' => $this->logo?->toArray(),
 			'videos' => [], //array_map(fn (Video $video) => $video->toArray(), $this->videos),
 			'scans' => [], //array_map(fn (Scan $scan) => $scan->toArray(), $this->scans),
-		];
+		]);
 	}
 }
