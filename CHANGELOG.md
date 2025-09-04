@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0
+- feat: added estate's usage sums
+
 ## 1.0.0
 - breaking: now requires PHP >=8.1
 - feat: re-add indoor scans to all 3 levels (Estate, Building, Rentable)
