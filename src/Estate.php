@@ -10,6 +10,7 @@ use SchemaImmo\Estate\Location;
 use SchemaImmo\Estate\Social;
 use SchemaImmo\Estate\Texts;
 use SchemaImmo\Estate\Usage;
+use SchemaImmo\Media\Documents;
 
 class Estate implements Arrayable
 {
@@ -35,6 +36,7 @@ class Estate implements Arrayable
 	public Social $social;
 	public Usage $usage;
 	public ?WebExpose $expose = null;
+	public Documents $docs;
 
 	public function __construct(
 		?string $id = null,
@@ -55,6 +57,7 @@ class Estate implements Arrayable
 		?Social $social = null,
 		?Usage $usage = null,
 		?WebExpose $expose = null,
+		?Documents $docs = null
 	)
 	{
 		if ($id !== null) {
@@ -83,6 +86,7 @@ class Estate implements Arrayable
 		$this->social = $social ?? new Social;
 		$this->usage = $usage ?? new Usage;
 		$this->expose = $expose;
+		$this->docs = $docs ?? new Documents;
 	}
 
 	public static function fake(): self
@@ -157,6 +161,10 @@ class Estate implements Arrayable
 			$estate->expose = WebExpose::from($data['expose']);
 		}
 
+		if (isset($data['docs'])) {
+			$estate->docs = Documents::from($data['docs']);
+		}
+
         return $estate;
     }
 
@@ -178,6 +186,7 @@ class Estate implements Arrayable
 			'location' => $this->location->toArray(),
 			'certifications' => $this->certifications->toArray(),
 			'social' => $this->social->toArray(),
+			'docs' => $this->docs->toArray(),
 			'expose' => $this->expose?->toArray(),
         ]);
     }
