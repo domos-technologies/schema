@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.0
+- feat: added estate's document URLs (PDF exposes, etc)
+
 ## 1.1.0
 - feat: added estate's usage sums
 
