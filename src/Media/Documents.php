@@ -29,7 +29,6 @@ class Documents implements Arrayable
 
 	public function toArray(): array
 	{
-		dump($this);
 		return array_filter([
 			'exposes' => $this->exposes
 				? array_map(fn(Document $doc) => $doc->toArray(), $this->exposes)

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+- fix: correct wrong function call
+
 ## 1.2.0
 - feat: added estate's document URLs (PDF exposes, etc)
 
